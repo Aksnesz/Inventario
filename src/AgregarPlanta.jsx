@@ -4,7 +4,6 @@ function AddPlant() {
   const [name, setName] = useState('');
   const [url, setUrl] = useState('');
   const [status, setStatus] = useState('Bueno');
-  const [cantidad, setCantidad] = useState();
   const [message, setMessage] = useState(''); // Estado para el mensaje
 
 

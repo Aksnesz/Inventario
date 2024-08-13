@@ -39,6 +39,34 @@ function PlantList() {
     .catch((error) => console.error('Error updating plant state:', error));
   };
 
+  const handleDelete = (id) => {
+    // Elimina la planta de Firebase
+    fetch(`https://inventario-4a3e0-default-rtdb.firebaseio.com/Flores/${id}.json`, {
+      method: 'DELETE',
+    })
+    .then((response) => {
+      if (response.ok) {
+        setPlants((prevPlants) => prevPlants.filter((plant) => plant.id !== id));
+      } else {
+        console.error('Error deleting plant');
+      }
+    })
+    .catch((error) => console.error('Error deleting plant:', error));
+  };
+
+  const getStateClass = (estado) => {
+    switch (estado) {
+      case 'Bueno':
+        return 'text-success'; // Verde
+      case 'Malo':
+        return 'text-warning'; // Naranja
+      case 'Muerto':
+        return 'text-danger'; // Rojo
+      default:
+        return '';
+    }
+  };
+
   return (
     <div className="container mt-4">
       <div className="row">
@@ -48,7 +76,9 @@ function PlantList() {
               <img src={plant.url} alt={plant.nombre} className="card-img-top" />
               <div className="card-body">
                 <h5 className="card-title">{plant.nombre}</h5>
-                <p className="card-text">Estado: {plant.estado}</p>
+                <p className={`card-text ${getStateClass(plant.estado)}`}>
+                  Estado: {plant.estado}
+                </p>
                 <select
                   value={plant.estado}
                   onChange={(e) => handleStateChange(plant.id, e.target.value)}
@@ -58,6 +88,12 @@ function PlantList() {
                   <option value="Malo">Malo</option>
                   <option value="Muerto" style={{ color: 'red'}}>Muerto</option>
                 </select>
+                <button
+                  onClick={() => handleDelete(plant.id)}
+                  className="btn btn-danger mt-2"
+                >
+                  Eliminar
+                </button>
               </div>
             </div>
           </div>
