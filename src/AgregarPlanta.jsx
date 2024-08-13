@@ -4,6 +4,8 @@ function AddPlant() {
   const [name, setName] = useState('');
   const [url, setUrl] = useState('');
   const [status, setStatus] = useState('Bueno');
+  const [cantidad, setCantidad] = useState();
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -11,7 +13,8 @@ function AddPlant() {
     const newPlant = {
       nombre: name,
       url: url,
-      estado: status
+      estado: status,
+      cantidad: cantidad
     };
 
     fetch('https://inventario-4a3e0-default-rtdb.firebaseio.com/Flores.json', {
@@ -26,7 +29,8 @@ function AddPlant() {
       console.log('Planta agregada:', data);
       setName('');
       setUrl('');
-      setStatus('Bueno');
+      setStatus('');
+      setCantidad();
     })
     .catch(error => console.error('Error al agregar la planta:', error));
   };
@@ -67,6 +71,18 @@ function AddPlant() {
             <option value="Muerta">Muerta</option>
           </select>
         </div>
+        <div className="mb-3">
+  <label className="form-label">CANTIDAD</label>
+  <input
+    type="number"
+    className="form-control"
+    value={cantidad}
+    onChange={(e) => setCantidad(e.target.value)}
+    required
+    min="0"   // opcional: para asegurarte de que solo se ingresen números positivos
+    step="1"  // para que solo se permitan valores enteros
+  />
+</div>
         <button type="submit" className="btn btn-primary">Agregar Planta</button>
       </form>
     </div>
