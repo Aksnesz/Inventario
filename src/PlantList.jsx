@@ -39,6 +39,21 @@ function PlantList() {
     .catch((error) => console.error('Error updating plant state:', error));
   };
 
+  const handleDelete = (id) => {
+    // Elimina la planta de Firebase
+    fetch(`https://inventario-4a3e0-default-rtdb.firebaseio.com/Flores/${id}.json`, {
+      method: 'DELETE',
+    })
+    .then((response) => {
+      if (response.ok) {
+        setPlants((prevPlants) => prevPlants.filter((plant) => plant.id !== id));
+      } else {
+        console.error('Error deleting plant');
+      }
+    })
+    .catch((error) => console.error('Error deleting plant:', error));
+  };
+
   const getStateClass = (estado) => {
     switch (estado) {
       case 'Bueno':
@@ -73,6 +88,12 @@ function PlantList() {
                   <option value="Malo">Malo</option>
                   <option value="Muerto">Muerto</option>
                 </select>
+                <button
+                  onClick={() => handleDelete(plant.id)}
+                  className="btn btn-danger mt-2"
+                >
+                  Eliminar
+                </button>
               </div>
             </div>
           </div>
