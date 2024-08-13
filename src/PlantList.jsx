@@ -16,6 +16,29 @@ function PlantList() {
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
 
+  const handleStateChange = (id, newState) => {
+    // Actualiza el estado de la planta en Firebase
+    fetch(`https://inventario-4a3e0-default-rtdb.firebaseio.com/Flores/${id}.json`, {
+      method: 'PATCH',
+      body: JSON.stringify({ estado: newState }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => {
+      if (response.ok) {
+        setPlants((prevPlants) =>
+          prevPlants.map((plant) =>
+            plant.id === id ? { ...plant, estado: newState } : plant
+          )
+        );
+      } else {
+        console.error('Error updating plant state');
+      }
+    })
+    .catch((error) => console.error('Error updating plant state:', error));
+  };
+
   return (
     <div className="container mt-4">
       <div className="row">
@@ -26,7 +49,15 @@ function PlantList() {
               <div className="card-body">
                 <h5 className="card-title">{plant.nombre}</h5>
                 <p className="card-text">Estado: {plant.estado}</p>
-                {/* Aquí podrías añadir botones para cambiar el estado o eliminar */}
+                <select
+                  value={plant.estado}
+                  onChange={(e) => handleStateChange(plant.id, e.target.value)}
+                  className="form-select"
+                >
+                  <option value="Bueno">Bueno</option>
+                  <option value="Malo">Malo</option>
+                  <option value="Muerto">Muerto</option>
+                </select>
               </div>
             </div>
           </div>
