@@ -39,6 +39,19 @@ function PlantList() {
     .catch((error) => console.error('Error updating plant state:', error));
   };
 
+  const getStateClass = (estado) => {
+    switch (estado) {
+      case 'Bueno':
+        return 'text-success'; // Verde
+      case 'Malo':
+        return 'text-warning'; // Naranja
+      case 'Muerto':
+        return 'text-danger'; // Rojo
+      default:
+        return '';
+    }
+  };
+
   return (
     <div className="container mt-4">
       <div className="row">
@@ -48,7 +61,9 @@ function PlantList() {
               <img src={plant.url} alt={plant.nombre} className="card-img-top" />
               <div className="card-body">
                 <h5 className="card-title">{plant.nombre}</h5>
-                <p className="card-text">Estado: {plant.estado}</p>
+                <p className={`card-text ${getStateClass(plant.estado)}`}>
+                  Estado: {plant.estado}
+                </p>
                 <select
                   value={plant.estado}
                   onChange={(e) => handleStateChange(plant.id, e.target.value)}
