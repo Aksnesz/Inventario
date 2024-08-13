@@ -56,7 +56,7 @@ function PlantList() {
                 >
                   <option value="Bueno">Bueno</option>
                   <option value="Malo">Malo</option>
-                  <option value="Muerto">Muerto</option>
+                  <option value="Muerto" style={{ color: 'red'}}>Muerto</option>
                 </select>
               </div>
             </div>
