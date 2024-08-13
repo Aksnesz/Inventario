@@ -13,7 +13,7 @@ function AddPlant() {
     const newPlant = {
       nombre: name,
       url: url,
-      estado: status,
+      estado: status    
     };
 
     fetch('https://inventario-4a3e0-default-rtdb.firebaseio.com/Flores.json', {
@@ -73,7 +73,7 @@ function AddPlant() {
             <option value="Muerta">Muerta</option>
           </select>
         </div>
-       
+
         <button type="submit" className="btn btn-primary">Agregar Planta</button>
         {message && <div className="mt-3 alert alert-info">{message}</div>} {/* Mensaje de confirmación */}
 
