@@ -5,6 +5,7 @@ function AddPlant() {
   const [url, setUrl] = useState('');
   const [status, setStatus] = useState('Bueno');
   const [cantidad, setCantidad] = useState();
+  const [message, setMessage] = useState(''); // Estado para el mensaje
 
 
   const handleSubmit = (e) => {
@@ -31,8 +32,12 @@ function AddPlant() {
       setUrl('');
       setStatus('');
       setCantidad();
+      setMessage('¡Planta agregada exitosamente!'); // Actualiza el mensaje de confirmación
+
     })
     .catch(error => console.error('Error al agregar la planta:', error));
+    setMessage('Error al agregar la planta.'); // Actualiza el mensaje en caso de error
+    
   };
 
   return (
@@ -84,6 +89,8 @@ function AddPlant() {
   />
 </div>
         <button type="submit" className="btn btn-primary">Agregar Planta</button>
+        {message && <div className="mt-3 alert alert-info">{message}</div>} {/* Mensaje de confirmación */}
+
       </form>
     </div>
   );
