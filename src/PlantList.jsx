@@ -1,0 +1,39 @@
+import React, { useEffect, useState } from 'react';
+
+function PlantList() {
+  const [plants, setPlants] = useState([]);
+
+  useEffect(() => {
+    fetch('https://inventario-4a3e0-default-rtdb.firebaseio.com/Flores.json')
+      .then((response) => response.json())
+      .then((data) => {
+        const plantArray = Object.keys(data).map((key) => ({
+          id: key,
+          ...data[key],
+        }));
+        setPlants(plantArray);
+      })
+      .catch((error) => console.error('Error fetching data:', error));
+  }, []);
+
+  return (
+    <div className="container mt-4">
+      <div className="row">
+        {plants.map((plant) => (
+          <div className="col-md-4 mb-4" key={plant.id}>
+            <div className="card">
+              <img src={plant.url} alt={plant.nombre} className="card-img-top" />
+              <div className="card-body">
+                <h5 className="card-title">{plant.nombre}</h5>
+                <p className="card-text">Estado: {plant.estado}</p>
+                {/* Aquí podrías añadir botones para cambiar el estado o eliminar */}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default PlantList;
