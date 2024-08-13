@@ -58,7 +58,6 @@ function PlantList() {
                   <option value="Malo">Malo</option>
                   <option value="Muerto">Muerto</option>
                 </select>
-                <p className="card-text">Cantidad: {plant.cantidad}</p>
               </div>
             </div>
           </div>
