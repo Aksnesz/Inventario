@@ -23,7 +23,7 @@ function Graficas() {
     const currentMonth = new Date().getMonth();
     const deaths = plantArray.filter(
       (plant) =>
-        plant.estado === 'Muerta' &&
+        plant.estado === 'Muerto' &&
         new Date(plant.dateOfDeath).getMonth() === currentMonth
     );
     setMonthlyDeaths(deaths.length);
@@ -33,7 +33,7 @@ function Graficas() {
     ['Estado', 'Número de Plantas'],
     ['Bueno', plants.filter((plant) => plant.estado === 'Bueno').length],
     ['Malo', plants.filter((plant) => plant.estado === 'Malo').length],
-    ['Muerta', plants.filter((plant) => plant.estado === 'Muerta').length],
+    ['Muerto', plants.filter((plant) => plant.estado === 'Muerto').length],
   ];
 
   const deathData = [
@@ -53,15 +53,7 @@ function Graficas() {
           height={'400px'}
         />
       </div>
-      <div className="mb-4">
-        <Chart
-          chartType="BarChart"
-          data={deathData}
-          options={{ title: 'Plantas Muertas Este Mes' }}
-          width={'100%'}
-          height={'400px'}
-        />
-      </div>
+   
     </div>
   );
 }
